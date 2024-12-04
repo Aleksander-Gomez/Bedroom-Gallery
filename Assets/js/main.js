@@ -198,6 +198,7 @@
 
 	// Intro.
 		var $intro = $('#intro');
+		var $backgroundElement = $('#wrapper > .bg'); // Target the background element
 
 		if ($intro.length > 0) {
 
@@ -215,6 +216,18 @@
 					}).trigger('resize.ie-intro-fix');
 				}
 
+   // Manage blur effect on scroll for background image.
+   var blurDistance = 200; // Distance in pixels for full blur
+
+   $window.on('scroll', function () {
+	   var scrollPos = $window.scrollTop(),
+		   blurAmount = Math.min(1, scrollPos / blurDistance); // Normalize blur factor to [0, 1]
+
+	   // Apply dynamic blur to background element
+	   $backgroundElement.css('filter', `blur(${blurAmount * 10}px)`); // Max blur is 10px
+	   $intro.css('filter', `blur(${blurAmount * 10}px)`); // Max blur is 10px
+
+   });
 			// Hide intro on scroll (> small).
 				breakpoints.on('>small', function() {
 

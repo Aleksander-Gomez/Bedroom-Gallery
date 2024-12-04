@@ -91,6 +91,9 @@ input, select, textarea {
 	}
 
 	html {
+		/* Add smooth scroll for background blur */
+		scroll-behavior: smooth; 
+
 		box-sizing: border-box;
 	}
 
@@ -3232,16 +3235,24 @@ input, select, textarea {
 			top: 0;
 			left: 0;
 			width: 100%;
-			height: 100%;
+			height: 100vh;
 			background-color: #212931;
 			background-image: url("../../images/overlay.png"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("/Assets/BGBG.png");
-			background-size: auto,								auto,														100% auto;
-			background-position: center,								center,														top center;
-			background-repeat: repeat,								no-repeat,													no-repeat;
-			background-attachment: scroll,								scroll,														scroll;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
 			z-index: -1;
+			filter: none;
+			transition: filter 0.3s ease; /*smooth background blur effect*/ 
 		}
 
+		/* Fallback for browsers that do not support background-attachment: fixed */
+@supports not (background-attachment: fixed) {
+    #wrapper > .bg {
+        background-attachment: scroll; /* Fallback */
+    }
+}
 			#wrapper > .bg.fixed {
 				position: fixed;
 				width: 100vw;
